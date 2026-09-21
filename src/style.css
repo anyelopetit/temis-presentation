@@ -352,12 +352,14 @@ body.spark-ready .spark-anchor .mark { visibility: hidden; }
   transition: width 0.55s ease, height 0.55s ease;
 }
 .spark[data-scheme='dark'] { --mark-white: 1; }
+/* Navy, not violet: the isotipo's spark is the brand violet itself, so a violet
+   tile would swallow it. On navy the white tulip and the violet spark both read. */
 .spark[data-tone='tile'] {
   --mark-white: 1;
   --mark-size: 88%;
   border-radius: 24%;
-  background: linear-gradient(150deg, var(--violet-600), #3a3cc9);
-  box-shadow: 0 1.2rem 2.4rem -0.8rem rgba(79, 81, 224, 0.75);
+  background: linear-gradient(150deg, #182058, var(--navy-900));
+  box-shadow: 0 1.2rem 2.4rem -0.8rem rgba(23, 31, 88, 0.55);
 }
 
 
