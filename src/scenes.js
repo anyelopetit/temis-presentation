@@ -76,7 +76,7 @@ export const scenes = [
     id: 'portada',
     tone: 'dark',
     kicker: 'Más datos. Mejores decisiones. Negocios más fuertes.',
-    lockup: true,
+    lockup: 'See what matters.',
     title: 'Convierte los datos de tu negocio <em>en decisiones.</em>',
     lede: 'Inteligencia operacional para pequeñas y medianas empresas.',
     note: 'Temis es la capa de inteligencia que se apoya sobre los sistemas que la pyme ya usa.',
@@ -465,7 +465,7 @@ export const scenes = [
       { ico: 'bulb', title: 'Detecta oportunidades', note: 'La IA encuentra patrones y te da recomendaciones.' },
       { ico: 'rocket', title: 'Toma acción', note: 'Convierte insights en decisiones que generan resultados.' },
     ],
-    cta: { label: 'Quiero analizar mi negocio', note: 'Sin instalaciones. Sin complicaciones. Solo resultados.' },
+    cta: { label: 'Quiero analizar mi negocio', href: 'https://temis.app', foot: 'Sin instalaciones. Sin complicaciones. Solo resultados.' },
     note: 'Cierre: el llamado a la acción y la promesa de marca.',
     visual: () => `
       <div class="close">

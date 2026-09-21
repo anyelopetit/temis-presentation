@@ -1,0 +1,287 @@
+/* ==========================================================================
+   Piezas propias de la propuesta de sociedad.
+   Es un documento de trabajo: aquí manda la densidad de datos, no el impacto.
+   Como el resto del proyecto, todo se dimensiona en `em` sobre el font-size
+   fluido de `.visual`.
+   ========================================================================== */
+
+.visual { font-variant-numeric: tabular-nums; }
+
+/* Marca de documento interno, siempre visible junto al logo. */
+.topbar__claim { display: flex; align-items: center; gap: 0.5rem; }
+.topbar__claim::before {
+  content: 'Interno';
+  padding: 0.2rem 0.5rem;
+  border-radius: 99px;
+  background: var(--amber-bg);
+  color: var(--amber);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* --------------------------- cifras de titular ---------------------------- */
+
+.figures { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7em; }
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+  padding: 1.1em;
+  border: 1px solid var(--card-line);
+  border-radius: 1.1em;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+.figure__label { font-size: 0.86em; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--card-sub); }
+.figure__value { font-size: 2.3em; font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; color: var(--card-ink); }
+.figure__value small { font-size: 0.45em; font-weight: 700; letter-spacing: 0; color: var(--card-sub); }
+.figure__note { font-size: 0.92em; line-height: 1.4; color: var(--card-sub); }
+.figure--accent { background: linear-gradient(155deg, var(--violet-050), var(--card) 70%); }
+.figure--accent .figure__value { color: var(--violet); }
+body[data-tone='dark'] .figure--accent .figure__value { color: #a5a6f8; }
+
+/* ------------------------------- listas de datos -------------------------- */
+
+.ledger {
+  display: flex;
+  flex-direction: column;
+  padding: 0.3em 1.1em;
+  border: 1px solid var(--card-line);
+  border-radius: 1.1em;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+.ledger__head { display: flex; justify-content: space-between; gap: 1em; padding: 0.9em 0 0.5em; border-bottom: 1px solid var(--card-line); }
+.ledger__head b { font-size: 1.05em; color: var(--card-ink); }
+.ledger__head span { font-size: 0.85em; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--card-sub); }
+.ledger__row { display: flex; align-items: baseline; gap: 0.8em; padding: 0.62em 0; border-bottom: 1px solid var(--card-line); }
+.ledger__row:last-child { border-bottom: 0; }
+.ledger__row > span { min-width: 0; color: var(--card-ink); }
+.ledger__row small { display: block; font-size: 0.86em; color: var(--card-sub); }
+.ledger__row b { margin-left: auto; white-space: nowrap; font-weight: 700; color: var(--card-ink); }
+.ledger__row.is-total { border-top: 2px solid var(--card-line); border-bottom: 0; margin-top: 0.2em; padding-top: 0.75em; }
+.ledger__row.is-total > span, .ledger__row.is-total b { font-weight: 800; }
+.ledger__row.is-total b { color: var(--violet); }
+body[data-tone='dark'] .ledger__row.is-total b { color: #a5a6f8; }
+.ledger__foot { padding: 0.6em 0 0.9em; font-size: 0.88em; line-height: 1.45; color: var(--card-sub); }
+
+/* --------------------------- estado de madurez ---------------------------- */
+
+.matrix { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7em; align-items: start; }
+.matrix__col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45em;
+  padding: 1em;
+  border: 1px solid var(--card-line);
+  border-radius: 1.1em;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+.matrix__head { display: flex; align-items: center; gap: 0.45em; font-size: 0.86em; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.matrix__head .ico { width: 1.3em; }
+.matrix__rule { font-size: 0.88em; line-height: 1.4; color: var(--card-sub); }
+.matrix__col ul { display: flex; flex-direction: column; gap: 0.3em; margin: 0; padding: 0; list-style: none; }
+.matrix__col li { position: relative; padding-left: 1em; font-size: 0.95em; line-height: 1.35; color: var(--card-ink); }
+.matrix__col li::before { content: ''; position: absolute; left: 0; top: 0.5em; width: 0.35em; height: 0.35em; border-radius: 50%; background: currentColor; opacity: 0.4; }
+.matrix--go { border-top: 3px solid var(--green); }
+.matrix--go .matrix__head { color: var(--green); }
+.matrix--wait { border-top: 3px solid var(--amber); }
+.matrix--wait .matrix__head { color: var(--amber); }
+.matrix--stop { border-top: 3px solid var(--red); }
+.matrix--stop .matrix__head { color: var(--red); }
+
+/* --------------------------------- rangos --------------------------------- */
+
+.range { display: flex; flex-direction: column; gap: 0.3em; }
+.range__head { display: flex; justify-content: space-between; gap: 1em; font-size: 0.92em; color: var(--card-ink); }
+.range__head b { font-weight: 700; }
+.range__bar { position: relative; height: 0.62em; border-radius: 99px; background: var(--violet-050); overflow: hidden; }
+.range__fill { position: absolute; top: 0; bottom: 0; border-radius: 99px; background: linear-gradient(90deg, var(--violet-400), var(--violet)); }
+.range__scale { display: flex; justify-content: space-between; font-size: 0.8em; color: var(--card-sub); }
+
+/* ------------------------------- cronograma ------------------------------- */
+
+.track { display: flex; flex-direction: column; }
+.track__row { display: grid; grid-template-columns: 7.5em 1fr; gap: 0.9em; padding: 0.7em 0; border-bottom: 1px solid var(--card-line); }
+.track__row:last-child { border-bottom: 0; }
+.track__when { display: flex; flex-direction: column; gap: 0.15em; }
+.track__when b { font-size: 0.98em; color: var(--card-ink); }
+.track__when small { font-size: 0.82em; font-weight: 700; color: var(--violet); }
+body[data-tone='dark'] .track__when small { color: #a5a6f8; }
+.track__what { display: flex; flex-direction: column; gap: 0.2em; }
+.track__what span { font-size: 0.95em; line-height: 1.35; color: var(--card-ink); }
+.track__gate { display: inline-flex; align-items: center; gap: 0.4em; align-self: flex-start; padding: 0.3em 0.65em; border-radius: 99px; background: var(--green-bg); color: var(--green); font-size: 0.84em; font-weight: 700; }
+.track__gate .ico { width: 1.1em; }
+
+/* -------------------------------- escenarios ------------------------------ */
+
+.cases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7em; }
+.case {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+  padding: 1em;
+  border: 1px solid var(--card-line);
+  border-radius: 1.1em;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+.case__tag { font-size: 0.82em; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--card-sub); }
+.case__clients { font-size: 1.9em; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; color: var(--card-ink); }
+.case__clients small { font-size: 0.42em; font-weight: 700; letter-spacing: 0; color: var(--card-sub); }
+.case dl { display: flex; flex-direction: column; gap: 0.25em; margin: 0.3em 0 0; }
+.case div { display: flex; justify-content: space-between; gap: 0.6em; font-size: 0.92em; }
+.case dt { color: var(--card-sub); }
+.case dd { margin: 0; font-weight: 700; color: var(--card-ink); }
+.case__read { margin: 0.4em 0 0; padding-top: 0.5em; border-top: 1px solid var(--card-line); font-size: 0.88em; line-height: 1.4; color: var(--card-sub); }
+.case--goal { border-color: var(--violet-100); background: linear-gradient(160deg, var(--violet-050), var(--card) 70%); }
+.case--goal .case__tag { color: var(--violet); }
+body[data-tone='dark'] .case--goal .case__tag { color: #a5a6f8; }
+
+/* --------------------------- perfil de cliente ---------------------------- */
+
+.profile { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7em; align-items: start; }
+.profile__col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+  padding: 1em;
+  border: 1px solid var(--card-line);
+  border-radius: 1.1em;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+.profile__head { display: flex; align-items: center; gap: 0.45em; font-size: 0.9em; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+.profile__head .ico { width: 1.3em; }
+.profile--yes { border-top: 3px solid var(--green); }
+.profile--yes .profile__head { color: var(--green); }
+.profile--no { border-top: 3px solid var(--red); }
+.profile--no .profile__head { color: var(--red); }
+.trait { display: flex; gap: 0.5em; font-size: 0.95em; line-height: 1.35; color: var(--card-ink); }
+.trait::before { content: '—'; color: var(--card-sub); }
+
+/* ------------------------------ riesgos ----------------------------------- */
+
+.risks { display: flex; flex-direction: column; gap: 0.5em; }
+.risk {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8em;
+  padding: 0.75em 0.95em;
+  border: 1px solid var(--card-line);
+  border-left: 3px solid var(--amber);
+  border-radius: 0.9em;
+  background: var(--card);
+}
+.risk b { font-size: 0.98em; color: var(--card-ink); }
+.risk span { display: flex; gap: 0.45em; font-size: 0.92em; line-height: 1.35; color: var(--card-sub); }
+.risk span .ico { flex: none; width: 1.15em; margin-top: 0.08em; color: var(--green); }
+
+/* --------------------------- modelos de cobro ----------------------------- */
+
+.models { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5em; }
+.model {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15em;
+  padding: 0.75em 0.9em;
+  border: 1px solid var(--card-line);
+  border-radius: 0.9em;
+  background: var(--card);
+}
+.model b { font-size: 0.98em; color: var(--card-ink); }
+.model small { font-size: 0.87em; line-height: 1.35; color: var(--card-sub); }
+.model__tag { align-self: flex-start; margin-top: 0.25em; padding: 0.22em 0.55em; border-radius: 99px; font-size: 0.78em; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+.model--now { border-color: var(--green); background: linear-gradient(160deg, var(--green-bg), var(--card) 70%); }
+.model--now .model__tag { background: var(--green); color: #fff; }
+.model--next { border-color: var(--violet-100); }
+.model--next .model__tag { background: var(--violet); color: #fff; }
+.model--later { opacity: 0.72; }
+.model--later .model__tag { background: var(--card-line); color: var(--card-sub); }
+
+/* ------------------------------- la sociedad ------------------------------ */
+
+.split { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7em; align-items: start; }
+.split__col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+  padding: 1em;
+  border: 1px solid var(--card-line);
+  border-radius: 1.1em;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+.split__who { display: flex; align-items: center; gap: 0.5em; font-size: 1.02em; font-weight: 800; color: var(--card-ink); }
+.split__who i { display: grid; place-items: center; width: 1.9em; height: 1.9em; border-radius: 50%; background: var(--violet-050); color: var(--violet); font-size: 0.85em; font-style: normal; font-weight: 800; }
+.split__col ul { display: flex; flex-direction: column; gap: 0.28em; margin: 0; padding: 0; list-style: none; }
+.split__col li { position: relative; padding-left: 0.95em; font-size: 0.94em; line-height: 1.35; color: var(--card-sub); }
+.split__col li::before { content: ''; position: absolute; left: 0; top: 0.52em; width: 0.32em; height: 0.32em; border-radius: 50%; background: var(--violet); opacity: 0.55; }
+.split--open { border-style: dashed; background: transparent; box-shadow: none; }
+.split--open .split__who i { background: var(--amber-bg); color: var(--amber); }
+.split--open li::before { background: var(--amber); }
+
+/* --------------------------------- planes --------------------------------- */
+
+.plans { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7em; }
+.plan {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  padding: 1em;
+  border: 1px solid var(--card-line);
+  border-radius: 1.1em;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+.plan__name { font-size: 0.86em; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--violet); }
+body[data-tone='dark'] .plan__name { color: #a5a6f8; }
+.plan__price { display: flex; align-items: baseline; gap: 0.35em; font-size: 1.85em; font-weight: 800; letter-spacing: -0.03em; color: var(--card-ink); }
+.plan__price small { font-size: 0.45em; font-weight: 700; letter-spacing: 0; color: var(--card-sub); }
+.plan__month { font-size: 1em; font-weight: 700; color: var(--card-ink); }
+.plan__month small { font-weight: 600; color: var(--card-sub); }
+.plan ul { display: flex; flex-direction: column; gap: 0.22em; margin: 0.3em 0 0; padding: 0; list-style: none; }
+.plan li { position: relative; padding-left: 0.95em; font-size: 0.9em; line-height: 1.35; color: var(--card-sub); }
+.plan li::before { content: ''; position: absolute; left: 0; top: 0.5em; width: 0.3em; height: 0.3em; border-radius: 50%; background: var(--violet); opacity: 0.5; }
+
+/* -------------------------------- avisos ---------------------------------- */
+
+.callout {
+  display: flex;
+  gap: 0.7em;
+  padding: 0.9em 1.1em;
+  border-radius: 1em;
+  background: var(--amber-bg);
+  color: var(--card-ink);
+  font-size: 0.98em;
+  line-height: 1.45;
+}
+.callout .ico { flex: none; width: 1.4em; margin-top: 0.1em; color: var(--amber); }
+.callout b { font-weight: 800; }
+.callout--ok { background: var(--green-bg); }
+.callout--ok .ico { color: var(--green); }
+.callout--violet { background: var(--violet-050); }
+.callout--violet .ico { color: var(--violet); }
+
+.stack { display: flex; flex-direction: column; gap: 0.6em; }
+.stack--tight { gap: 0.45em; }
+
+/* ------------------------------- responsive ------------------------------- */
+
+@media (max-width: 1100px) {
+  .models { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 899px) {
+  .figures, .matrix, .cases, .split { grid-template-columns: 1fr; }
+  .profile, .plans { grid-template-columns: 1fr; }
+  .risk { grid-template-columns: 1fr; gap: 0.35em; }
+  .track__row { grid-template-columns: 1fr; gap: 0.3em; }
+  /* En móvil sobrevive sólo el sello: la marca de documento interno no se oculta. */
+  .topbar__claim { display: flex; margin-left: auto; padding: 0; border: 0; font-size: 0; }
+  .topbar__claim::before { font-size: 0.6rem; }
+  .topbar__counter { margin-left: 0.6rem; }
+}

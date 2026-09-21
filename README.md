@@ -1,10 +1,17 @@
-# Temis — presentación interactiva
+# Temis — presentaciones interactivas
 
-Landing por escenas que cuenta la propuesta de Temis: la capa de inteligencia que convierte
-los datos operativos de una pyme en decisiones concretas.
+Dos presentaciones por escenas que comparten el mismo motor y la misma marca.
 
-Doce escenas animadas, una sola página, pensada tanto para proyectar en una reunión como
-para abrirla desde el teléfono y deslizar.
+| Ruta | Qué es | Para quién |
+| --- | --- | --- |
+| `/` | La propuesta de producto: la capa de inteligencia que convierte los datos de una pyme en decisiones. Doce escenas. | Público. Clientes y prospectos. |
+| `/socio/` | La propuesta de sociedad: estado real del producto, inversión, ROI, tiempos y riesgos del piloto. Diecisiete escenas. | Documento de trabajo interno. |
+
+> **Sobre `/socio/`.** Contiene costes, precios, márgenes y términos de sociedad. Lleva
+> `noindex` y está excluida en `robots.txt`, pero **la URL es pública**: cualquiera que la
+> tenga puede abrirla. Trátala como un enlace que se comparte a mano, no como un secreto.
+> Sus cifras salen de `PLAN_INVERSION.md`, `Resumen_Ejecutivo_Temis.md` y
+> `Memo_Temis_David_Marin.md` del repositorio `temis-django`, al 20 de septiembre de 2026.
 
 ## Cómo correrlo
 
@@ -50,13 +57,19 @@ directo a cualquier momento de la historia.
 
 ```
 src/
-  main.js     motor de escenas: transiciones GSAP, teclado, swipe, hash, autoplay
-  scenes.js   las doce escenas: copy, puntos y el mock-up de cada una
-  ui.js       piezas compartidas: marcas, íconos, tarjetas, teléfonos, tablero
-  style.css   tokens de marca, layout fluido y responsive
+  deck.js       motor compartido: transiciones GSAP, teclado, swipe, hash, autoplay
+  ui.js         piezas compartidas: marcas, íconos, tarjetas, teléfonos, tablero
+  style.css     tokens de marca, layout fluido y responsive
+  main.js       entrada de la presentación de producto
+  scenes.js     sus doce escenas
+  socio/
+    main.js     entrada de la propuesta de sociedad
+    scenes.js   sus diecisiete escenas
+    style.css   piezas propias: cifras, libros de datos, matriz de estado, rangos
 public/
-  brand/      isotipo de Temis (navy y blanco) y logos de las fuentes de datos
-  photos/     fotos recortadas del deck original
+  brand/        isotipo de Temis (navy y blanco) y logos de las fuentes de datos
+  photos/       fotos recortadas del deck original
+vite.config.js  las dos páginas del build
 ```
 
 Tres decisiones que explican el resto del código:
