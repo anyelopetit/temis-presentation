@@ -4,8 +4,8 @@ Dos presentaciones por escenas que comparten el mismo motor y la misma marca.
 
 | Ruta | Qué es | Para quién |
 | --- | --- | --- |
-| `/` | La propuesta de producto: la capa de inteligencia que convierte los datos de una pyme en decisiones. Doce escenas. | Público. Clientes y prospectos. |
-| `/socio/` | La propuesta de sociedad: estado real del producto, inversión, ROI, tiempos y riesgos del piloto. Diecisiete escenas. | Documento de trabajo interno. |
+| `/` | Recorrido público del MVP: operación comercial, importación manual y alertas para revisión humana. Doce escenas. | Público. Clientes y prospectos. |
+| `/socio/` | Propuesta de sociedad: estado real, supuestos de inversión y riesgos del piloto. Diecisiete escenas. | Documento de trabajo interno, pero URL pública. |
 
 > **Sobre `/socio/`.** Contiene costes, precios, márgenes y términos de sociedad. Lleva
 > `noindex` y está excluida en `robots.txt`, pero **la URL es pública**: cualquiera que la
@@ -20,8 +20,9 @@ npm install
 npm run dev
 ```
 
-`npm run build` genera `dist/`. El deploy a GitHub Pages es automático con cada push a `main`
-(ver `.github/workflows/deploy-pages.yml`).
+`npm run build` genera `dist/`. La configuración de GitHub Pages vive en
+`.github/workflows/deploy-pages.yml`; este repositorio no afirma una publicación activa ni
+debe usarse como sustituto de una validación de despliegue.
 
 ## Cómo se navega
 
@@ -42,10 +43,10 @@ directo a cualquier momento de la historia.
 | --- | --- | --- |
 | 01 | Portada | Convierte los datos de tu negocio en decisiones. |
 | 02 | El problema | La información existe, el tiempo para entenderla no. |
-| 03 | La oportunidad | Temis se apoya sobre los sistemas que ya usas. |
+| 03 | La oportunidad | Temis empieza con importaciones manuales CSV/Excel; no sincroniza ERP. |
 | 04 | Cómo funciona | Cuatro pasos: traer, entender, priorizar, accionar. |
-| 05 | El producto | Inicio, Analizar y Clientes en una sola app. |
-| 06 | Todo lo que entiende | Catorce áreas de análisis conectadas. |
+| 05 | El producto | Operación, catálogo, clientes, agenda e importación en una sola app. |
+| 06 | Todo lo que entiende | Ocho áreas reales del MVP. |
 | 07 | De dato a decisión | Un caso concreto de punta a punta. |
 | 08 | Un paso adelante | El mismo tablero en escritorio y en el bolsillo. |
 | 09 | Hecho para pymes | Inteligencia de grandes empresas, a escala pyme. |

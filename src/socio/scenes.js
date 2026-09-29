@@ -101,7 +101,7 @@ export const scenes = [
     lockup: 'Propuesta de sociedad',
     title: 'Lo que ya está construido, <em>y lo que falta por probar.</em>',
     lede: 'Para David Marín. De Anyelo Petit. Septiembre de 2026.',
-    foot: 'Documento de trabajo. Las cifras son propuestas de partida expresadas como rangos de planificación: no son una cotización y ninguna autoriza un pago.',
+    foot: 'Documento de trabajo. La ruta /socio/ es pública aunque lleve noindex: no tiene autenticación y no debe contener secretos. Las cifras son propuestas de partida, no una cotización ni facturación automática.',
     visual: () => `
       <div class="stack">
         ${ledger({
@@ -176,7 +176,7 @@ export const scenes = [
     wide: true,
     title: 'Qué puedes prometer <em>y qué no.</em>',
     lede: 'De esta tabla depende tu credibilidad en una reunión. La regla es simple: sólo la primera columna se vende.',
-    foot: 'El repositorio mantiene 39 pruebas automatizadas. Es una red de seguridad razonable para esta etapa, no una garantía de calidad de cara a un cliente.',
+    foot: 'La cobertura automatizada cambia con el código; no se publica una cifra como prueba de calidad. La validación pendiente incluye despliegue, datos y cuentas reales de cliente.',
     visual: () => `
       <div class="stack">
         <div class="matrix">
@@ -187,7 +187,8 @@ export const scenes = [
               'Catálogo público por empresa',
               'Solicitud con fecha, hora y duración',
               'Cotización en USD con referencia BCV',
-              'Panel, reservas, calendario y evidencia de pago',
+              'Panel de operaciones: venta, alquiler, citas y carrito de stock',
+              'Reserva y pago sólo con aprobación humana',
               'Vencimiento configurable de solicitudes',
               'Aislamiento de datos entre empresas',
             ],
@@ -196,10 +197,10 @@ export const scenes = [
             tone: 'wait', ico: 'alert', head: 'Se demuestra, advirtiendo',
             rule: 'Existe en código y puede probarse. No se cotiza como producto terminado.',
             items: [
-              'WhatsApp Cloud API: construido, nunca activado con una cuenta real',
-              'Bot de consultas de catálogo y horarios',
-              'Importación de datos desde Excel',
-              'Motor de hallazgos con ocho detectores',
+              'Transporte WhatsApp Cloud y SMTP: requieren cuentas y configuración externas',
+              'Bot de consultas; no confirma pagos ni reservas',
+              'Importación manual CSV/Excel con mapeo heurístico',
+              'Seis reglas deterministas y copiloto de lectura; IA opcional con contexto genérico',
               'Onboarding guiado',
             ],
           })}
@@ -211,11 +212,12 @@ export const scenes = [
               'Contratos y firma digital',
               'Sincronización en vivo con Saint o PSKloud',
               'Multisucursal, flotas compartidas y delivery',
-              'Inmobiliarias y supermercados',
+              'Gastos, utilidad neta, proveedores y cuentas por cobrar/pagar',
+              'Inmobiliarias y supermercados como clientes validados',
             ],
           })}
         </div>
-        ${callout('Falta además la <b>puesta en producción</b>: certificado de seguridad, respaldos automáticos, monitoreo, correo de sistema y alta de clientes sin tocar el servidor. Son <b>16 a 32 horas</b>. No es producto nuevo; es dejarlo listo para tocar datos de alguien real.')}
+        ${callout('Falta además la <b>validación de producción</b>: certificado, respaldos, monitoreo y configuración de correo/Meta con cuentas externas. El rango de 16 a 32 horas es una estimación de planificación, no un compromiso ni una prueba de disponibilidad.')}
       </div>`,
   },
 
@@ -404,17 +406,17 @@ export const scenes = [
         <div class="cases">
           ${scenario({
             tag: 'Pesimista', clients: '1',
-            rows: [['Instalaciones', 'USD 300'], ['Recurrente', 'USD 89/mes'], ['Margen técnico', 'USD 54 – 69']],
+            rows: [['Instalaciones', 'USD 300'], ['Recurrente', 'USD 89/mes'], ['Diferencia técnica estimada', 'USD 54 – 69']],
             read: 'Cubre la infraestructura y nada más. No paga trabajo.',
           })}
           ${scenario({
             tag: 'Base', clients: '3',
-            rows: [['Instalaciones', 'USD 900'], ['Recurrente', 'USD 267/mes'], ['Margen técnico', 'USD 232 – 247']],
+            rows: [['Instalaciones', 'USD 900'], ['Recurrente', 'USD 267/mes'], ['Diferencia técnica estimada', 'USD 232 – 247']],
             read: 'Sostiene la operación técnica; el trabajo sigue subsidiado.',
           })}
           ${scenario({
             tag: 'Objetivo', clients: '5', goal: true,
-            rows: [['Instalaciones', 'USD 1.500'], ['Recurrente', 'USD 445/mes'], ['Margen técnico', 'USD 410 – 425']],
+            rows: [['Instalaciones', 'USD 1.500'], ['Recurrente', 'USD 445/mes'], ['Diferencia técnica estimada', 'USD 410 – 425']],
             read: 'Cumple el criterio de avance y permite decidir si se escala.',
           })}
         </div>
@@ -467,7 +469,7 @@ export const scenes = [
     foot: 'El autoservicio, la comisión por reserva y la marca blanca requieren desarrollo adicional y no deben ofrecerse en esta fase.',
     visual: () => `
       <div class="models">
-        ${model({ state: 'now', name: 'Implementación y suscripción', what: 'Instalación más mensualidad fija. Es el modelo vigente y no exige construir nada.', tag: 'Empezar aquí' })}
+        ${model({ state: 'now', name: 'Implementación y suscripción', what: 'Hipótesis comercial: instalación más mensualidad fija. No hay facturación automática.', tag: 'Empezar aquí' })}
         ${model({ state: 'next', name: 'Suscripción por niveles', what: 'Mensualidad según unidades, sucursales o usuarios. Exige contadores de uso.', tag: 'Al llegar a 3 clientes' })}
         ${model({ state: 'next', name: 'Módulo de inteligencia', what: 'Complemento mensual sobre el plan base. Se apoya en capacidad ya construida.', tag: 'Primera ampliación' })}
         ${model({ state: 'later', name: 'Cobro por consumo', what: 'Mensajes, solicitudes o importaciones procesadas. Exige medición, tope y facturación por uso.', tag: 'Más adelante' })}
@@ -503,7 +505,7 @@ export const scenes = [
           ],
           foot: 'Este orden <b>no autoriza vender, cotizar ni prometer plazos</b> de ningún vertical distinto de renta de autos. Abrir uno antes de tiempo es exactamente el riesgo de desarrollo no financiado.',
         })}
-        ${callout('El motor de hallazgos es <b>el activo menos visible del proyecto y el que no estamos cobrando</b>. Ocho detectores, cada hallazgo clasificado por tipo, categoría y severidad, con un ciclo que termina midiendo si la recomendación produjo resultado. Convertirlo en ingreso es la ampliación más barata que tenemos.', 'violet', 'bulb')}
+        ${callout('El motor de hallazgos es <b>un activo construido que aún no se cobra ni valida con clientes</b>. Hoy aplica seis reglas deterministas; el copiloto responde consultas de lectura y la IA es opcional. Convertirlo en ingreso requiere evidencia de uso y resultado.', 'violet', 'bulb')}
       </div>`,
   },
 
@@ -550,8 +552,8 @@ export const scenes = [
           head: 'Qué se conserva', cols: 'Aunque se pare',
           rows: [
             { label: 'La plataforma y su arquitectura multiempresa', value: 'Intacta' },
-            { label: 'El motor de hallazgos con sus ocho detectores', value: 'Intacto' },
-            { label: 'La integración con Meta, ya construida y probada', value: 'Intacta' },
+            { label: 'El motor de hallazgos con seis reglas', value: 'Intacto' },
+            { label: 'El transporte Meta/SMTP, pendiente de cuentas externas', value: 'Construido, no validado con cliente' },
             { label: 'El proceso comercial repetible y los tenants demo', value: 'Intacto' },
             { label: 'El dato que hoy falta: horas reales de onboarding', value: 'Ganado', total: true },
           ],

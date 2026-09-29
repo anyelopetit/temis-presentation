@@ -6,44 +6,36 @@ import {
 const photo = (name, alt, cls = '') =>
   `<img class="photo ${cls}" src="${asset('photos/' + name)}" alt="${alt}" loading="lazy" />`
 
-/* Data sources the deck shows: the two real systems keep their own logos. */
+/* The MVP imports files manually; it does not synchronize third-party systems. */
 const sources = [
-  { name: 'Saint', note: 'Sistema administrativo', logoSrc: 'brand/saint-logo.png' },
-  { name: 'PSKloud', note: 'Facturación en la nube', logoSrc: 'brand/pskloud-logo.webp' },
-  { name: 'Excel', note: 'Archivos .xlsx', ico: 'doc', tint: 'is-green' },
+  { name: 'Excel', note: 'Carga manual de .xlsx', ico: 'doc', tint: 'is-green' },
   { name: 'CSV', note: 'Reportes exportados', ico: 'doc', tint: 'is-teal' },
-  { name: 'WhatsApp', note: 'Pedidos y consultas', ico: 'whatsapp', tint: 'is-green' },
-  { name: 'Otros sistemas', note: 'ERP, POS, bases de datos', ico: 'db', tint: 'is-violet' },
+  { name: 'Ventas', note: 'Archivo de ventas', ico: 'bars', tint: 'is-violet' },
+  { name: 'Inventario', note: 'Archivo de existencias', ico: 'box', tint: 'is-amber' },
 ]
 
 const areas = [
-  { ico: 'bars', tint: 'is-green', name: 'Ventas', note: 'Rendimiento y tendencias' },
-  { ico: 'box', tint: 'is-blue', name: 'Productos', note: 'Lo más y lo menos vendido' },
-  { ico: 'grid', tint: 'is-amber', name: 'Inventario', note: 'Stock, quiebres y reposición' },
-  { ico: 'users', tint: 'is-violet', name: 'Clientes', note: 'Segmentación y comportamiento' },
-  { ico: 'cart', tint: 'is-blue', name: 'Compras', note: 'Proveedores y costos' },
-  { ico: 'truck', tint: 'is-teal', name: 'Proveedores', note: 'Desempeño y oportunidades' },
-  { ico: 'trend', tint: 'is-green', name: 'Rentabilidad', note: 'Márgenes y desempeño' },
-  { ico: 'cash', tint: 'is-violet', name: 'Flujo de caja', note: 'Entradas y salidas de dinero' },
-  { ico: 'doc', tint: 'is-teal', name: 'Cuentas por cobrar', note: 'Clientes y riesgo de mora' },
-  { ico: 'wallet', tint: 'is-amber', name: 'Cuentas por pagar', note: 'Compromisos y vencimientos' },
-  { ico: 'tag', tint: 'is-violet', name: 'Precios', note: 'Variaciones y oportunidades' },
-  { ico: 'gear', tint: 'is-blue', name: 'Operaciones', note: 'Eficiencia y procesos' },
-  { ico: 'grid', tint: 'is-green', name: 'Categorías', note: 'Desempeño por categoría' },
-  { ico: 'alert', tint: 'is-red', name: 'Anomalías', note: 'Detección de situaciones atípicas' },
+  { ico: 'bars', tint: 'is-green', name: 'Ingresos', note: 'Ventas y tendencias importadas' },
+  { ico: 'gear', tint: 'is-blue', name: 'Operaciones', note: 'Ventas, alquileres y citas' },
+  { ico: 'grid', tint: 'is-violet', name: 'Catálogo', note: 'Precios y condiciones por empresa' },
+  { ico: 'users', tint: 'is-violet', name: 'Clientes', note: 'Perfiles e inactividad' },
+  { ico: 'box', tint: 'is-amber', name: 'Inventario aplicable', note: 'Stock y riesgos de quiebre' },
+  { ico: 'clock', tint: 'is-teal', name: 'Agenda', note: 'Disponibilidad y reservas' },
+  { ico: 'alert', tint: 'is-red', name: 'Alertas', note: 'Reglas de análisis' },
+  { ico: 'spark', tint: 'is-blue', name: 'Copiloto', note: 'Consultas de lectura; IA opcional' },
 ]
 
 const questions = [
-  '¿Cuánto vendimos hoy?',
+  '¿Cómo vamos este mes?',
   '¿Qué productos se están agotando?',
-  '¿Quiénes son nuestros mejores clientes?',
-  '¿Por qué cayeron las ventas?',
+  '¿Qué productos generan más ingresos?',
+  '¿Qué clientes llevan 90 días sin comprar?',
 ]
 
 const steps = [
   { n: 1, title: 'Trae tus datos', note: 'Sube tus archivos desde tus sistemas o exportaciones.' },
-  { n: 2, title: 'Temis entiende', note: 'La IA analiza y normaliza tu información automáticamente.' },
-  { n: 3, title: 'Encuentra lo importante', note: 'Detecta oportunidades, riesgos, anomalías y tendencias.' },
+  { n: 2, title: 'Temis organiza', note: 'Hace sugerencias de columnas que tú revisas; la IA opcional sólo usa encabezados.' },
+  { n: 3, title: 'Encuentra lo importante', note: 'Marca señales que puedes comprobar en los datos importados.' },
   { n: 4, title: 'Te dice qué hacer', note: 'Convierte los análisis en acciones claras y concretas.' },
 ]
 
@@ -57,15 +49,15 @@ const restock = [
 /* Insights repeated across the deck, so the same story stays consistent. */
 const stockInsight = insight({
   kind: { ico: 'box', label: 'Inventario' }, tone: 'amber',
-  title: '8 productos podrían agotarse esta semana.',
-  note: 'Podrías dejar de vender unos $680.',
-  cta: 'Ver qué comprar',
+  title: 'Demo: 8 productos podrían agotarse esta semana.',
+  note: 'Escenario ilustrativo; revisa existencias antes de decidir.',
+  cta: 'Revisar existencias',
 })
 
 const salesInsight = insight({
   kind: { ico: 'bars', label: 'Ventas' }, tone: 'green',
-  title: 'Ventas +12% vs. la semana pasada.',
-  note: '$2.480 → $11.120 en ventas.',
+  title: 'Demo: ventas +12% vs. la semana pasada.',
+  note: '$2.480 → $2.778 en este ejemplo.',
   cta: 'Ver detalles',
 })
 
@@ -86,11 +78,11 @@ export const scenes = [
           <div><strong>Buenas tardes, Anyelo.</strong><small>Esto es lo más importante hoy.</small></div>
           <span class="pill">Últimos 30 días</span>
         </div>
-        <span class="dash__label">Insights destacados</span>
+        <span class="dash__label">Datos demo · insights destacados</span>
         <div class="dash__insights">${stockInsight}${salesInsight}</div>
         <span class="dash__label">Análisis</span>
         <div class="dash__stats">
-          ${stat({ label: 'Ventas', value: '$1.842', delta: '+12% vs. ayer', ico: 'bars', tone: 'is-green' })}
+          ${stat({ label: 'Ventas demo', value: '$2.778', delta: '+12% vs. semana', ico: 'bars', tone: 'is-green' })}
           ${stat({ label: 'Inventario', value: '8', delta: 'en stock bajo', ico: 'box', tone: 'is-amber' })}
           ${stat({ label: 'Productos', value: '124', delta: 'total', ico: 'grid', tone: 'is-blue' })}
           ${stat({ label: 'Clientes', value: '317', delta: '17 inactivos', ico: 'users', tone: 'is-violet' })}
@@ -127,13 +119,13 @@ export const scenes = [
     num: '03',
     kicker: 'La oportunidad',
     title: 'No tienes que cambiar tu negocio <em>para usar Temis.</em>',
-    lede: 'Temis se conecta a las herramientas que ya utilizas, entiende tu información y la convierte en insights accionables.',
+    lede: 'Temis importa tus archivos de trabajo, organiza su lectura y convierte los datos disponibles en señales accionables.',
     points: [
-      { ico: 'link', title: 'Sin migraciones', note: 'Funciona con tus sistemas actuales.' },
-      { ico: 'clock', title: 'Implementación rápida', note: 'Empieza a ver valor en días.' },
-      { ico: 'bars', title: 'Escalable', note: 'Acompaña el crecimiento de tu negocio.' },
+      { ico: 'link', title: 'Sin sincronización forzada', note: 'Empieza con una exportación CSV o Excel.' },
+      { ico: 'clock', title: 'Proceso guiado', note: 'El equipo revisa el primer mapeo.' },
+      { ico: 'bars', title: 'Alcance claro', note: 'La automatización adicional es roadmap.' },
     ],
-    note: 'Misma información, más claridad: Temis no reemplaza sistemas, los conecta.',
+    note: 'Misma información, más claridad: hoy la entrada es manual, no una sincronización con ERP.',
     visual: () => `
       <div class="flow">
         <div class="flow__col">
@@ -150,7 +142,7 @@ export const scenes = [
           ${outcome({ ico: 'bulb', tint: 'is-blue', title: 'Recomendaciones', note: 'Qué hacer y por qué.' })}
           ${outcome({ ico: 'users', tint: 'is-green', title: 'Clientes', note: 'Conoce y entiende a tus clientes.' })}
           ${outcome({ ico: 'box', tint: 'is-amber', title: 'Inventario', note: 'Evita quiebres y sobrestock.' })}
-          ${outcome({ ico: 'trend', tint: 'is-teal', title: 'Rentabilidad', note: 'Identifica qué te deja más margen.' })}
+          ${outcome({ ico: 'alert', tint: 'is-teal', title: 'Alertas', note: 'Prioriza riesgos detectados.' })}
         </div>
       </div>
       <p class="flow__foot vi">Misma información. <em>Más claridad.</em> Mejores decisiones.</p>`,
@@ -165,7 +157,7 @@ export const scenes = [
     lede: 'Un proceso simple, pensado para que obtengas valor desde el primer análisis.',
     points: [
       { ico: 'bolt', title: 'Simple', note: 'Sin configuraciones complejas.' },
-      { ico: 'shield', title: 'Seguro', note: 'Tus datos siempre protegidos.' },
+      { ico: 'shield', title: 'Acceso por empresa', note: 'Controles de acceso por empresa.' },
       { ico: 'bars', title: 'Enfocado en resultados', note: 'Insights que se convierten en acciones.' },
     ],
     note: 'Cuatro pasos: traer los datos, entenderlos, encontrar lo importante y decir qué hacer.',
@@ -183,7 +175,7 @@ export const scenes = [
         ${insight({
           kind: { ico: 'bulb', label: 'Recomendación' }, tone: 'violet',
           title: '8 productos podrían agotarse esta semana.',
-          note: 'Podrías dejar de vender unos $680.',
+          note: 'Escenario ilustrativo; revisa existencias antes de decidir.',
           cta: 'Ver detalles',
         })}
       </div>`,
@@ -197,8 +189,8 @@ export const scenes = [
     title: 'Inteligencia para tu negocio, <em>en una sola app.</em>',
     lede: 'Temis te muestra lo más importante, te ayuda a profundizar en los datos y te lleva de los insights a la acción.',
     points: [
-      { ico: 'home', title: 'Todo en un solo lugar', note: 'Ventas, inventario, clientes y compras, desde el celular o la computadora.' },
-      { ico: 'bolt', title: 'Insights que importan', note: 'Detecta oportunidades, riesgos y tendencias de forma automática.' },
+      { ico: 'home', title: 'Operación y lectura', note: 'Catálogo, solicitudes, clientes, agenda e importaciones en una sola app.' },
+      { ico: 'bolt', title: 'Insights acotados', note: 'Reglas de análisis y consultas de lectura.' },
       { ico: 'users', title: 'Acciones concretas', note: 'Recomendaciones claras para que tomes mejores decisiones.' },
     ],
     note: 'Tres pantallas cuentan el producto: Inicio resume, Analizar profundiza, Clientes acciona.',
@@ -208,29 +200,29 @@ export const scenes = [
           cls: 'phone--side phone--inicio vi', title: 'Buenas tardes, Anyelo.', sub: 'Esto es lo más importante hoy.',
           body: `${stockInsight}
             <div class="rows">
-              ${row({ ico: 'bars', tint: 'is-green', name: 'Ventas', note: '+12% vs. ayer', value: '$1.842' })}
-              ${row({ ico: 'box', tint: 'is-amber', name: 'Inventario', note: '8 con stock bajo' })}
-              ${row({ ico: 'users', tint: 'is-violet', name: 'Clientes', note: '17 inactivos', value: '317' })}
+              ${row({ ico: 'bars', tint: 'is-green', name: 'Ventas demo', note: '+12% ilustrativo', value: '$2.778' })}
+              ${row({ ico: 'box', tint: 'is-amber', name: 'Inventario demo', note: '8 con stock bajo' })}
+              ${row({ ico: 'users', tint: 'is-violet', name: 'Clientes demo', note: '17 inactivos', value: '317' })}
             </div>`,
         })}
         ${phone({
           cls: 'phone--main phone--analizar vi', title: 'Analizar', sub: 'Insights de tus datos, en un solo lugar.',
-          chips: `<div class="chips">${['Ventas', 'Productos', 'Inventario', 'Clientes', 'Cobros', 'Anomalías'].map((c, i) => `<span class="chip${i === 0 ? ' is-active' : ''}">${c}</span>`).join('')}</div>`,
+          chips: `<div class="chips">${['Ventas', 'Productos', 'Inventario', 'Clientes', 'Alertas', 'Copiloto'].map((c, i) => `<span class="chip${i === 0 ? ' is-active' : ''}">${c}</span>`).join('')}</div>`,
           body: `<div class="phone__pair">${stockInsight}${salesInsight}</div>
             <div class="rows">
               ${row({ ico: 'box', tint: 'is-amber', name: 'Inventario', note: '8 productos en riesgo', value: 'Hoy' })}
-              ${row({ ico: 'bars', tint: 'is-green', name: 'Ventas', note: 'Crecimiento del 12%', value: 'Hoy' })}
-              ${row({ ico: 'doc', tint: 'is-red', name: 'Cobros', note: '5 facturas vencidas', value: '12 Sep' })}
+              ${row({ ico: 'bars', tint: 'is-green', name: 'Ventas demo', note: 'Variación del 12%', value: 'Ejemplo' })}
+              ${row({ ico: 'alert', tint: 'is-red', name: 'Alerta', note: 'Requiere revisión humana', value: 'Demo' })}
             </div>`,
         })}
         ${phone({
-          cls: 'phone--side phone--clientes vi', title: 'Clientes', sub: 'Gestiona y entiende a tus clientes.',
+          cls: 'phone--side phone--clientes vi', title: 'Clientes demo', sub: 'Mockup de lectura de clientes.',
           chips: `<div class="chips">${[['Todos', '317'], ['Activos', '300'], ['Inactivos', '17']].map(([c, n], i) => `<span class="chip${i === 0 ? ' is-active' : ''}">${c} <b>${n}</b></span>`).join('')}</div>`,
           body: `<div class="rows">
-              ${row({ ico: 'users', tint: 'is-violet', name: 'Comercial del Sur', note: 'Cliente frecuente', value: '$12.480' })}
-              ${row({ ico: 'users', tint: 'is-blue', name: 'Industrias Nova', note: 'Cliente clave', value: '$8.230' })}
-              ${row({ ico: 'users', tint: 'is-green', name: 'La Casa Creativa', note: 'Activo recientemente', value: '$5.620' })}
-              ${row({ ico: 'users', tint: 'is-amber', name: 'Distribuidora Mendoza', note: 'Cliente frecuente', value: '$4.890' })}
+              ${row({ ico: 'users', tint: 'is-violet', name: 'Cliente demo A', note: 'Ejemplo visual', value: '$12.480' })}
+              ${row({ ico: 'users', tint: 'is-blue', name: 'Cliente demo B', note: 'Ejemplo visual', value: '$8.230' })}
+              ${row({ ico: 'users', tint: 'is-green', name: 'Cliente demo C', note: 'Ejemplo visual', value: '$5.620' })}
+              ${row({ ico: 'users', tint: 'is-amber', name: 'Cliente demo D', note: 'Ejemplo visual', value: '$4.890' })}
             </div>`,
         })}
       </div>`,
@@ -242,13 +234,13 @@ export const scenes = [
     num: '06',
     kicker: 'Todo lo que entiende',
     title: 'Una sola inteligencia. <em>Todo tu negocio.</em>',
-    lede: 'Temis analiza y conecta todas las áreas clave de tu negocio para darte una visión completa y accionable.',
+    lede: 'El MVP reúne las áreas operativas y de lectura que hoy tienen un flujo construido.',
     points: [
       { ico: 'db', title: 'Más contexto', note: 'Cada fuente de información enriquece el análisis.' },
       { ico: 'spark', title: 'Más claridad', note: 'Encuentra lo importante sin perderte en los datos.' },
       { ico: 'bars', title: 'Más resultados', note: 'Convierte información en acciones concretas.' },
     ],
-    note: 'Catorce áreas de análisis: de lo operativo hasta la rentabilidad.',
+    note: 'Ocho áreas reales del MVP; gastos, utilidad neta, proveedores y cuentas por cobrar están fuera del alcance actual.',
     visual: () => `
       <div class="areas">
         ${areas.map(a => `
@@ -257,7 +249,7 @@ export const scenes = [
             <b>${a.name}</b><small>${a.note}</small>
           </div>`).join('')}
       </div>
-      <div class="areas__count vi"><strong>14</strong><span>áreas de análisis en un solo lugar.</span></div>`,
+      <div class="areas__count vi"><strong>8</strong><span>áreas reales del MVP en un solo lugar.</span></div>`,
   },
 
   {
@@ -266,13 +258,13 @@ export const scenes = [
     num: '07',
     kicker: 'De dato a decisión',
     title: 'Información en contexto. <em>Decisiones en la práctica.</em>',
-    lede: 'Temis convierte tus datos en insights claros y acciones concretas que generan resultados reales.',
+    lede: 'Temis convierte datos importados en alertas y lecturas que una persona puede revisar y convertir en acción.',
     points: [
       { ico: 'bolt', title: 'Detecta oportunidades', note: 'Antes de que se conviertan en problemas.' },
       { ico: 'target', title: 'Prioriza lo importante', note: 'Te muestra lo que realmente impacta tu negocio.' },
       { ico: 'check', title: 'Te dice qué hacer', note: 'Recomendaciones claras y accionables.' },
     ],
-    note: 'Un caso real: reponer 4 productos esta semana evita perder $680 en ventas.',
+    note: 'Escenario ilustrativo: revisar cuatro existencias antes de decidir una reposición.',
     visual: () => `
       <div class="pipeline">
         <div class="pipe">
@@ -285,7 +277,7 @@ export const scenes = [
         <div class="pipe pipe--core">
           <span class="pipe__label">2 · Temis analiza</span>
           <div class="core core--sm vi">${anchor('tile')}</div>
-          <span class="core__caption">IA que entiende tu negocio</span>
+          <span class="core__caption">Sugerencias de columnas que tú revisas · IA opcional para encabezados</span>
         </div>
         <div class="pipe">
           <span class="pipe__label">3 · Insights claros</span>
@@ -298,9 +290,9 @@ export const scenes = [
             <span class="reco__head">${icon('check', 'ico--badge')}<b>Recomendación prioritaria</b></span>
             <small>Reponer estos productos esta semana:</small>
             <ul>${restock.map(([n, q]) => `<li><span>${n}</span><b>${q}</b></li>`).join('')}</ul>
-            <span class="btn btn--sm">Generar orden de compra <i>&rarr;</i></span>
+            <span class="btn btn--sm">Revisar existencias <i>&rarr;</i></span>
           </div>
-          <p class="reco__gain vi">${icon('bars')}<span>Esta acción podría evitar una pérdida de <b>$680</b> en ventas.</span></p>
+          <p class="reco__gain vi">${icon('bars')}<span>Dato de demostración: la decisión final requiere revisión humana.</span></p>
         </div>
       </div>`,
   },
@@ -311,9 +303,9 @@ export const scenes = [
     num: '08',
     kicker: 'Tu negocio, un paso adelante',
     title: 'Decisiones hoy para un mejor <em>mañana.</em>',
-    lede: 'Temis te da la claridad que necesitas para crecer, optimizar tus operaciones y enfocarte en lo que realmente importa: tu negocio.',
+    lede: 'Temis concentra la operación y la lectura disponible para ayudarte a revisar lo importante antes de actuar.',
     points: [
-      { ico: 'bars', title: 'Crece con datos', note: 'Identifica oportunidades y mejora tus resultados.' },
+      { ico: 'bars', title: 'Lee tus datos', note: 'Identifica señales para revisar.' },
       { ico: 'clock', title: 'Ahorra tiempo', note: 'Menos trabajo manual, más decisiones.' },
       { ico: 'spark', title: 'Compite con ventaja', note: 'Conoce tu negocio como nunca antes.' },
     ],
@@ -322,7 +314,7 @@ export const scenes = [
       <div class="desk vi">
         <aside class="desk__nav">
           ${logo('logo--xs')}
-          ${['Inicio', 'Analizar', 'Ventas', 'Productos', 'Inventario', 'Clientes', 'Compras'].map((n, i) =>
+          ${['Inicio', 'Analizar', 'Operaciones', 'Catálogo', 'Inventario', 'Clientes', 'Agenda'].map((n, i) =>
             `<span class="desk__link${i === 0 ? ' is-active' : ''}">${n}</span>`).join('')}
         </aside>
         <div class="desk__main">
@@ -331,10 +323,10 @@ export const scenes = [
             <span class="pill">Últimos 30 días</span>
           </div>
           <div class="desk__stats">
-            ${stat({ label: 'Ventas', value: '$2.480', delta: '↑ 12%', ico: 'bars', tone: 'is-green' })}
-            ${stat({ label: 'Clientes', value: '317', delta: '↑ 8%', ico: 'users', tone: 'is-violet' })}
-            ${stat({ label: 'Productos', value: '124', delta: '↑ 5%', ico: 'box', tone: 'is-blue' })}
-            ${stat({ label: 'Margen', value: '28%', delta: '↑ 4%', ico: 'trend', tone: 'is-teal' })}
+            ${stat({ label: 'Ventas demo', value: '$2.778', delta: '↑ 12%', ico: 'bars', tone: 'is-green' })}
+            ${stat({ label: 'Clientes demo', value: '317', delta: '↑ 8% ilustrativo', ico: 'users', tone: 'is-violet' })}
+            ${stat({ label: 'Productos demo', value: '124', delta: '↑ 5% ilustrativo', ico: 'box', tone: 'is-blue' })}
+            ${stat({ label: 'Alertas', value: '3', delta: 'para revisar', ico: 'alert', tone: 'is-teal' })}
           </div>
           <div class="desk__chart">
             <div class="desk__chart-head"><b>Ventas</b><span class="link">Ver detalles &rarr;</span></div>
@@ -348,9 +340,9 @@ export const scenes = [
       </div>
       <div class="mini vi">
         <strong>Hola, Anyelo.</strong><small>Tu negocio en tus manos.</small>
-        ${row({ ico: 'bars', tint: 'is-green', name: 'Ventas', note: '↑ 12%', value: '$2.480' })}
-        ${row({ ico: 'users', tint: 'is-violet', name: 'Clientes', note: '↑ 8%', value: '317' })}
-        ${row({ ico: 'trend', tint: 'is-teal', name: 'Margen', note: '↑ 4%', value: '28%' })}
+        ${row({ ico: 'bars', tint: 'is-green', name: 'Ventas demo', note: '↑ 12%', value: '$2.778' })}
+        ${row({ ico: 'users', tint: 'is-violet', name: 'Clientes demo', note: '↑ 8% ilustrativo', value: '317' })}
+        ${row({ ico: 'alert', tint: 'is-teal', name: 'Alertas', note: 'para revisar', value: '3' })}
       </div>
       <span class="tagline tagline--dark vi">Mismos datos. <em>Un futuro más grande.</em></span>`,
     enter(tl, el) {
@@ -365,22 +357,22 @@ export const scenes = [
     tone: 'light',
     num: '09',
     kicker: 'Hecho para pymes',
-    title: 'La inteligencia de grandes empresas, <em>ahora para ti.</em>',
-    lede: 'Temis está diseñado para pymes que quieren crecer, con una herramienta simple, poderosa y accesible.',
+    title: 'Una lectura más clara de tu operación, <em>ahora para ti.</em>',
+    lede: 'Temis se presenta como un MVP demostrable para pymes: la automatización comercial y las métricas de resultado aún se validan.',
     points: [
       { ico: 'store', title: 'Fácil de usar', note: 'Sin conocimientos técnicos.' },
-      { ico: 'wallet', title: 'Precio accesible', note: 'Pensado para pymes reales.' },
-      { ico: 'headset', title: 'Soporte en tu idioma', note: 'Te acompañamos en cada paso.' },
+      { ico: 'wallet', title: 'Precio por definir', note: 'Las propuestas comerciales son supuestos, no facturación automática.' },
+      { ico: 'headset', title: 'Acompañamiento piloto', note: 'El alcance se acuerda por empresa.' },
     ],
-    note: 'La misma inteligencia que usan las grandes cadenas, al alcance de un minimarket.',
+    note: 'Mockup de demostración; no representa resultados ni un cliente real.',
     visual: () => `
       <div class="story">
         ${photo('pyme.webp', 'Dueña de un minimarket revisando su negocio en Temis')}
-        <div class="float float--a vi">${stat({ label: 'Ventas de hoy', value: '$2.480', delta: '↑ 12% vs. ayer', ico: 'bars', tone: 'is-violet' })}</div>
+        <div class="float float--a vi">${stat({ label: 'Ventas demo', value: '$2.778', delta: '↑ 12% ilustrativo', ico: 'bars', tone: 'is-violet' })}</div>
         <div class="float float--b vi">
           <div class="quote">
-            <p>“Ahora entiendo mejor qué productos me dejan más ganancia y en cuáles debo mejorar.”</p>
-            <span class="quote__who"><i>MG</i><span><b>María G.</b><small>Dueña de minimarket</small></span></span>
+            <p>“Quiero revisar primero qué productos necesitan atención.”</p>
+            <span class="quote__who"><i>DEMO</i><span><b>Escenario ilustrativo</b><small>No es testimonio de cliente</small></span></span>
           </div>
         </div>
         <div class="float float--c vi">
@@ -405,22 +397,22 @@ export const scenes = [
     num: '10',
     kicker: 'Un futuro más grande',
     title: 'Más tiempo para lo que <em>realmente importa.</em>',
-    lede: 'Temis se encarga de los datos para que tú puedas enfocarte en hacer crecer tu negocio y disfrutar lo que te apasiona.',
+    lede: 'Temis ordena la información disponible para que puedas dedicar más tiempo a revisar y decidir.',
     points: [
       { ico: 'clock', title: 'Ahorra tiempo', note: 'Menos reportes, más acción.' },
       { ico: 'bars', title: 'Toma mejores decisiones', note: 'Con información clara y confiable.' },
-      { ico: 'heart', title: 'Haz crecer tu negocio', note: 'Con el respaldo de la inteligencia artificial.' },
+      { ico: 'heart', title: 'Decide con contexto', note: 'La IA es opcional y no reemplaza la revisión humana.' },
     ],
     note: 'El beneficio final no es el dato: es el tiempo y la tranquilidad del dueño.',
     visual: () => `
       <div class="story story--owner">
         ${photo('owner.webp', 'Dueño de un negocio mirando hacia adelante con confianza')}
-        <div class="float float--a vi">${stat({ label: 'Ventas', value: '$2.480', delta: '↑ 12% vs. semana pasada', ico: 'bars', tone: 'is-violet' })}</div>
-        <div class="float float--d vi">${stat({ label: 'Clientes nuevos', value: '17', delta: '↑ 41% vs. mes pasado', ico: 'users', tone: 'is-violet' })}</div>
+        <div class="float float--a vi">${stat({ label: 'Ventas demo', value: '$2.778', delta: '↑ 12% ilustrativo', ico: 'bars', tone: 'is-violet' })}</div>
+        <div class="float float--d vi">${stat({ label: 'Clientes demo', value: '17', delta: 'ejemplo visual', ico: 'users', tone: 'is-violet' })}</div>
         <div class="float float--b vi">
           <div class="quote">
-            <p>“Temis me da la claridad que necesito para seguir creciendo.”</p>
-            <span class="quote__who"><i>CM</i><span><b>Carlos M.</b><small>Dueño de restaurante</small></span></span>
+            <p>“La demostración me ayuda a ordenar qué revisar primero.”</p>
+            <span class="quote__who"><i>DEMO</i><span><b>Escenario ilustrativo</b><small>No es testimonio de cliente</small></span></span>
           </div>
         </div>
         <div class="float float--e vi"><span class="tagline tagline--violet">Negocios más fuertes. <em>Personas más libres.</em></span></div>
@@ -433,7 +425,7 @@ export const scenes = [
     num: '11',
     kicker: 'El futuro contigo',
     title: 'Hoy más inteligencia. <em>Mañana más oportunidades.</em>',
-    lede: 'Temis te acompaña en cada etapa de tu negocio, con la inteligencia que necesitas para tomar mejores decisiones y llegar más lejos.',
+    lede: 'La visión de Temis parte de un MVP demostrable y crece sólo con validación de uso real.',
     points: [
       { ico: 'bars', title: 'Datos que impulsan', note: 'Convierte información en crecimiento.' },
       { ico: 'users', title: 'Negocios más fuertes', note: 'Decisiones con confianza.' },
@@ -443,12 +435,12 @@ export const scenes = [
     visual: () => `
       <div class="story story--dawn">
         ${photo('sunrise.webp', 'Dueño de negocio mirando el amanecer sobre la ciudad con una taza de Temis')}
-        <div class="float float--a vi">${stat({ label: 'Ventas', value: '$2.480', delta: '↑ 12% vs. semana pasada', ico: 'bars', tone: 'is-violet' })}</div>
-        <div class="float float--d vi">${stat({ label: 'Clientes', value: '317', delta: '↑ 8% vs. mes pasado', ico: 'users', tone: 'is-violet' })}</div>
-        <div class="float float--f vi">${stat({ label: 'Oportunidades', value: '8', delta: '3 nuevas esta semana', ico: 'bulb', tone: 'is-amber' })}</div>
+        <div class="float float--a vi">${stat({ label: 'Ventas demo', value: '$2.778', delta: '↑ 12% ilustrativo', ico: 'bars', tone: 'is-violet' })}</div>
+        <div class="float float--d vi">${stat({ label: 'Clientes demo', value: '317', delta: '↑ 8% ilustrativo', ico: 'users', tone: 'is-violet' })}</div>
+        <div class="float float--f vi">${stat({ label: 'Alertas demo', value: '8', delta: 'ejemplo visual', ico: 'bulb', tone: 'is-amber' })}</div>
         <div class="float float--g vi">
-          <a class="btn" href="#/12">Comienza hoy <i>&rarr;</i></a>
-          <small>Tu negocio, con más posibilidades.</small>
+          <a class="btn" href="#/12">Ver el cierre <i>&rarr;</i></a>
+          <small>Recorrido de demostración.</small>
         </div>
       </div>`,
   },
@@ -459,24 +451,24 @@ export const scenes = [
     num: '12',
     kicker: 'Pymes que avanzan',
     title: 'Datos hoy. <em>Decisiones más grandes mañana.</em>',
-    lede: 'Temis convierte la información de tu negocio en claridad, para que puedas enfocarte en lo que realmente importa: hacerlo crecer.',
+    lede: 'Conoce el recorrido demostrable: operación, importación manual y alertas para revisión humana.',
     points: [
       { ico: 'bars', title: 'Entiende tu negocio', note: 'Visualiza ventas, productos y clientes en un solo lugar.' },
-      { ico: 'bulb', title: 'Detecta oportunidades', note: 'La IA encuentra patrones y te da recomendaciones.' },
-      { ico: 'rocket', title: 'Toma acción', note: 'Convierte insights en decisiones que generan resultados.' },
+      { ico: 'bulb', title: 'Prioriza alertas', note: 'Seis reglas y consultas de lectura; IA opcional.' },
+      { ico: 'rocket', title: 'Toma acción', note: 'Una persona confirma pagos, reservas y decisiones.' },
     ],
-    cta: { label: 'Quiero analizar mi negocio', href: 'https://temis.app', foot: 'Sin instalaciones. Sin complicaciones. Solo resultados.' },
+    cta: { label: 'Ver el recorrido', href: '#/1', foot: 'Demostración del MVP; sin promesa de resultados comerciales.' },
     note: 'Cierre: el llamado a la acción y la promesa de marca.',
     visual: () => `
       <div class="close">
         <div class="close__logo vi">${logo('logo--xl', true)}</div>
         <p class="close__claim vi">Tu aliado en el crecimiento de tu negocio.</p>
         <div class="close__stats">
-          ${stat({ label: 'Ventas de hoy', value: '$2.480', delta: '↑ 12% vs. semana pasada', ico: 'bars', tone: 'is-green' })}
-          ${stat({ label: 'Clientes', value: '317', delta: '↑ 8% vs. mes pasado', ico: 'users', tone: 'is-violet' })}
-          ${stat({ label: 'Productos', value: '124', delta: '↑ 5% vs. mes pasado', ico: 'box', tone: 'is-blue' })}
+          ${stat({ label: 'Ventas demo', value: '$2.778', delta: '↑ 12% ilustrativo', ico: 'bars', tone: 'is-green' })}
+          ${stat({ label: 'Clientes demo', value: '317', delta: '↑ 8% ilustrativo', ico: 'users', tone: 'is-violet' })}
+          ${stat({ label: 'Productos demo', value: '124', delta: '↑ 5% ilustrativo', ico: 'box', tone: 'is-blue' })}
         </div>
-        <div class="close__ai vi">${icon('spark', 'ico--badge')}<span>La IA encuentra oportunidades para ti.</span></div>
+        <div class="close__ai vi">${icon('spark', 'ico--badge')}<span>La IA es opcional; las alertas actuales se revisan de forma humana.</span></div>
       </div>`,
     enter(tl, el) {
       tl.from(el.querySelectorAll('.close__stats .stat'), {
